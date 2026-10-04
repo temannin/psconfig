@@ -43,24 +43,6 @@
         },
         {
           "background": "#E0E0E0",
-          "foreground": "#BF231D",
-          "foreground_templates": [
-            "{{ if eq .Output \"not merged\" }}#0A703E{{ end }}"
-          ],
-          "cache": {
-            "duration": "15s",
-            "strategy": "folder"
-          },
-          "properties": {
-            "shell": "pwsh",
-            "command": "$f = Join-Path $env:LOCALAPPDATA 'psconfig\\check-merged.ps1'; $url = 'https://raw.githubusercontent.com/temannin/psconfig/refs/heads/main/check-merged.ps1'; if (-not (Test-Path $f)) { New-Item -ItemType Directory (Split-Path $f) -Force | Out-Null; try { irm $url -OutFile $f } catch {} } elseif (((Get-Date) - (Get-Item $f).LastWriteTime).TotalDays -gt 1) { (Get-Item $f).LastWriteTime = Get-Date; Start-Process pwsh -WindowStyle Hidden -ArgumentList '-NoProfile', '-Command', \"try { irm '$url' -OutFile '$f' } catch {}\" }; if (Test-Path $f) { & $f }"
-          },
-          "style": "plain",
-          "template": "{{ if .Output }}  {{ .Output }} {{ end }}",
-          "type": "command"
-        },
-        {
-          "background": "#E0E0E0",
           "foreground": "#424242",
           "properties": {
             "style": "full"
